@@ -33,14 +33,14 @@ public class Checkpoints : MonoBehaviour
         {
             GameObject thisCheckpoint = other.gameObject;
 
-            //Check to see if player has started race
+            //Check to see if player has started race (First Checkpoint)
             if (thisCheckpoint == start && !hasStarted)
             {
-                print("Race Started");
+                Debug.Log("Race Started");
                 hasStarted = true;
             }
 
-            //Check to see if player has ended race/lap
+            //Check to see if player has ended race/lap (Last Checkpoint)
             else if (thisCheckpoint == end && hasStarted)
             {
                 if (currentLap == laps)
@@ -48,30 +48,32 @@ public class Checkpoints : MonoBehaviour
                     if (currentCheckpoint == checkpoints.Length)
                     {
                         hasFinished = true;
-                        print(" Race Finished");
+                        Debug.Log(" Race Finished");
+                        thisCheckpoint.SetActive(false);
                     }
                     else
                     {
-                        print("Player did not go through all checkpoints");
+                        Debug.Log("Player did not go through all checkpoints");
                     }
                 }
-                // Check to start new lap
+                //Check to start new lap
                 else if (currentLap < laps)
                 {
                     if (currentCheckpoint == checkpoints.Length)
                     {
                         currentLap++;
                         currentCheckpoint = 0;
-                        print($"Started Lap {currentLap}");
+                        print("Started Lap {currentLap}");
                     }
                 }
+                //If Player passes through Start/End before passing all checkpoints
                 else 
                 {
-                    print("Player did not go through all checkpoints");
+                    Debug.Log("Player did not go through all checkpoints");
                 }
             }
 
-            //Check to see most recent passed checkpoint
+            //Check to see if passed checkpoint is the correct one
             for (int i = 0; i < checkpoints.Length; i++)
             {
                 if (hasFinished)
@@ -81,13 +83,14 @@ public class Checkpoints : MonoBehaviour
 
                 if (thisCheckpoint == checkpoints[i] && i == currentCheckpoint)
                 {
-                    print("Correct checkpoint");
+                    Debug.Log("Correct checkpoint");
                     currentCheckpoint++;
+                    thisCheckpoint.SetActive(false);
                 }
 
                 else if (thisCheckpoint == checkpoints[i]&& i != currentCheckpoint)
                 {
-                    print("Incorrect checkpoint");      
+                    Debug.Log("Incorrect checkpoint");      
                 }
             
             }
