@@ -81,16 +81,24 @@ public class Checkpoints : MonoBehaviour
                     return;
                 }
 
+                //Correct
                 if (thisCheckpoint == checkpoints[i] && i == currentCheckpoint)
                 {
                     Debug.Log("Correct checkpoint");
                     currentCheckpoint++;
-                    thisCheckpoint.SetActive(false);
+                    
+                    //Takes checkpoints away on final lap
+                    if (thisCheckpoint == checkpoints[i] && currentLap == laps)
+                    {
+                        thisCheckpoint.SetActive(false);
+                    }
+                        
                 }
 
+                //Incorrect
                 else if (thisCheckpoint == checkpoints[i]&& i != currentCheckpoint)
                 {
-                    Debug.Log("Incorrect checkpoint");      
+                    Debug.Log("Incorrect checkpoint");  
                 }
             
             }
